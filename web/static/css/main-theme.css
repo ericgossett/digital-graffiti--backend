@@ -4,6 +4,7 @@ body{
     color: #070a0d;
 }
 
+
 .hero {
     height: 400px;
     background-color: #1D2B3D;
@@ -130,6 +131,10 @@ body{
     margin: 0 5px;
 }
 
+.card-link {
+    color: inherit !important;
+    text-decoration: inherit !important;
+}
 
 .button-main {
     letter-spacing: 2px;

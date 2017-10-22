@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main-theme.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display|Nunito:400,700" rel="stylesheet">         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script src="http://threejs.org/build/three.min.js"></script>
+		<script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+        <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+		<script src="http://threejs.org/examples/js/Detector.js"></script>
+		<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+    </head>
+    <body>
+        <nav class="top-nav">
+            <div class="top-nav__logo">
+                <span class="logo-text">Digital Graffiti</span>
+            </div>
+        </nav>
+        <div class="sidebar">
+            <a class="sidebar__item" href="{{ url_for('tags') }}">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+            </a>
+            <a class="sidebar__item" href="{{ url_for('upload_piece') }}">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+            </a>
+        </div>
+        <section class="main-viewport">
+            <div class="container-fluid">
+                <h1 class="section-title"> {{ piece.username }} </h1>
+            </div>
+        </section>
+
+        <script>
+            var clock = new THREE.Clock();
+            var delta = clock.getDelta(); // seconds.
+            var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
+			var container, stats;
+
+			var camera, scene, renderer, controls;
+
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+			animate();
+
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 2000;
+
+				// scene
+
+				scene = new THREE.Scene();
+
+				var ambient = new THREE.AmbientLight( 0x101030 );
+				scene.add( ambient );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+				directionalLight.position.set( 0, 10, 0 );
+				scene.add( directionalLight );
+
+                directionalLight = new THREE.DirectionalLight( 0xffeedd );
+				directionalLight.position.set( 0, 0, 10 );
+				scene.add( directionalLight );
+
+				// texture
+                var texture = new THREE.Texture();
+
+				var loader = new THREE.ImageLoader( manager );
+				loader.load( '{{ piece.texture }}', function ( image ) {
+
+					texture.image = image;
+					texture.needsUpdate = true;
+
+				} );
+
+				var manager = new THREE.LoadingManager();
+				manager.onProgress = function ( item, loaded, total ) {
+
+					console.log( item, loaded, total );
+
+				};
+
+				// model
+				loader = new THREE.OBJLoader( manager );
+				loader.load( '{{ piece.model }}', function ( object ) {
+
+					object.traverse( function ( child ) {
+
+						if ( child instanceof THREE.Mesh ) {
+
+							child.material.map = texture;
+
+						}
+
+					} );
+
+					object.position.x = 0;
+                    /*
+                    object.rotation.x = 20* Math.PI / 180;
+                    object.rotation.z = 20* Math.PI / 180;
+
+                    object.scale.x = 1;
+                    object.scale.y = 1;
+                    object.scale.z = 1;
+                    */
+                    obj = object
+					scene.add( obj );
+
+				} );
+
+				renderer = new THREE.WebGLRenderer( { alpha: true } );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.setClearColor( 0x000000, 0 );
+				container.appendChild( renderer.domElement );
+
+                controls = new THREE.OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+
+			function animate() {
+                requestAnimationFrame( animate );
+                controls.update();
+                render();
+            }
+
+            function render() {
+                renderer.render( scene, camera );
+            }
+		</script>
+    </body>
+</html>

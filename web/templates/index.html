@@ -27,7 +27,7 @@
                   </div>
               </div>
               <div  id="pieces"class="row">
-
+                <!--
                   <div class="col-md-3">
                       <div class="card">
                           <div class="card__header-image" style="background-image:url('http://senseslost.com/third-rail-content/uploads/daregraffiti3.jpg');"></div>
@@ -202,30 +202,33 @@
                           </div>
                       </div>
                   </div>
+                -->
  {% for tag in tags %}
  <div class="col-md-3">
-  <div class="card">
-      <div class="card__header-image" style="background-image:url('{{ tag.tag }}');"></div>
-      <div class="card__row">
-          <div class="card__title">
-              {{ tag.username }}
-          </div>
-          <ul class="card__icons">
-              <li>
-                  <i class="fa fa-eye"></i>
-                  9,0001
-              </li>
-              <li>
-                  <i class="fa fa-comments-o"></i>
-                  7 
-              </li>
-              <li>
-                  <i class="fa fa-heart-o"></i>
-                  42 
-              </li>
-          </ul>
-      </div>
-  </div>
+     <a href="{{ url_for('piece_viewer', username=tag.username ) }}" class="card-link">
+        <div class="card">
+            <div class="card__header-image" style="background-image:url('{{ tag.tag }}');"></div>
+            <div class="card__row">
+                <div class="card__title">
+                    {{ tag.username }}
+                </div>
+                <ul class="card__icons">
+                    <li>
+                        <i class="fa fa-eye"></i>
+                        {{ range(1, 999) | random }}
+                    </li>
+                    <li>
+                        <i class="fa fa-comments-o"></i>
+                        {{ range(1, 999) | random }}
+                    </li>
+                    <li>
+                        <i class="fa fa-heart-o"></i>
+                        {{ range(1, 999) | random }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
 </div>          
 {% endfor %}
               <!--                  -->

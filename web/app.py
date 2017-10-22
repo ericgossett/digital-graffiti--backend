@@ -108,6 +108,17 @@ def upload_piece():
         db.pieces.insert_one(document)
     return render_template('upload.html')
 
+
+@app.route('/piece/<username>')
+def piece_viewer(username):
+    user_piece = db.pieces.find_one({'username': username})
+    if user_piece:
+        return render_template('piece.html', piece=user_piece)
+    else:
+        return 'username not found'
+
+
+
 ###############################################################################
 #
 #                               API ROUTES
