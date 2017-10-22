@@ -27,7 +27,8 @@
         </div>
         <section class="main-viewport">
             <div class="container-fluid">
-                <h1 class="section-title"> {{ piece.username }} </h1>
+                <h1 class="section-title" style="position:absolute; z-index:9000"> {{ piece.username }} </h1>
+                <div style="width:100%; height:100%" id="scene"></div>
             </div>
         </section>
 
@@ -50,10 +51,14 @@
 
 			function init() {
 
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				container = document.getElementById('scene')
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera = new THREE.PerspectiveCamera(
+                    45,
+                    container.getBoundingClientRect().width / container.getBoundingClientRect().height,
+                    1,
+                    10000
+                );
 				camera.position.z = 2000;
 
 				// scene
@@ -118,7 +123,7 @@
 				} );
 
 				renderer = new THREE.WebGLRenderer( { alpha: true } );
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize(container.getBoundingClientRect().width , container.getBoundingClientRect().height);
                 renderer.setClearColor( 0x000000, 0 );
 				container.appendChild( renderer.domElement );
 
@@ -131,10 +136,10 @@
 
 			function onWindowResize() {
 
-				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.aspect = container.getBoundingClientRect().width / container.getBoundingClientRect().height;
 				camera.updateProjectionMatrix();
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize(container.getBoundingClientRect().width, container.getBoundingClientRect().height);
 			}
 
 
