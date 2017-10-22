@@ -1,0 +1,236 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main-theme.css') }}">
+      <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display|Nunito:400,700" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+      <nav class="top-nav">
+          <div class="top-nav__logo">
+              <span class="logo-text">Digital Graffiti</span>
+          </div>
+      </nav>
+      <div class="sidebar">
+          <a class="sidebar__item sidebar__item--selected" href="{{ url_for('tags') }}">
+                  <i class="fa fa-database" aria-hidden="true"></i>
+          </a>
+          <a class="sidebar__item" href="{{ url_for('upload_piece') }}">
+                  <i class="fa fa-upload" aria-hidden="true"></i>
+          </a>
+      </div>
+      <section class="main-viewport">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="section-title"> Tags </h1>
+                  </div>
+              </div>
+              <div  id="pieces"class="row">
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('http://senseslost.com/third-rail-content/uploads/daregraffiti3.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('https://d2jv9003bew7ag.cloudfront.net/uploads/05-Piece-RISK_resize.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e0145019716961.562df1857408e.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('https://www.smashingmagazine.com/images/graffiti/reone2.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('https://i.ytimg.com/vi/ygdk32mx44A/maxresdefault.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('https://s-media-cache-ak0.pinimg.com/564x/00/bb/fc/00bbfc1ed07d6519a85f58b6d622e885.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card">
+                          <div class="card__header-image" style="background-image:url('http://images.mentalfloss.com/sites/default/files/styles/insert_main_wide_image/public/3_14.jpg');"></div>
+                          <div class="card__row">
+                              <div class="card__title">
+                                  Username
+                              </div>
+                              <ul class="card__icons">
+                                  <li>
+                                      <i class="fa fa-eye"></i>
+                                      9,0001
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-comments-o"></i>
+                                      7 
+                                  </li>
+                                  <li>
+                                      <i class="fa fa-heart-o"></i>
+                                      42 
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+ {% for tag in tags %}
+ <div class="col-md-3">
+  <div class="card">
+      <div class="card__header-image" style="background-image:url('{{ tag.tag }}');"></div>
+      <div class="card__row">
+          <div class="card__title">
+              {{ tag.username }}
+          </div>
+          <ul class="card__icons">
+              <li>
+                  <i class="fa fa-eye"></i>
+                  9,0001
+              </li>
+              <li>
+                  <i class="fa fa-comments-o"></i>
+                  7 
+              </li>
+              <li>
+                  <i class="fa fa-heart-o"></i>
+                  42 
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>          
+{% endfor %}
+              <!--                  -->
+              </div>
+          </div>
+      </section>
+  </body>
+</html>

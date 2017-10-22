@@ -1,0 +1,56 @@
+<html>
+        <head>
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/main-theme.css') }}">
+            <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display|Nunito:400,700" rel="stylesheet">         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        </head>
+        <body>
+            <nav class="top-nav">
+                <div class="top-nav__logo">
+                    <span class="logo-text">Digital Graffiti</span>
+                </div>
+            </nav>
+            <div class="sidebar">
+                <a class="sidebar__item" href="{{ url_for('tags') }}">
+                        <i class="fa fa-database" aria-hidden="true"></i>
+                </a>
+                <a class="sidebar__item sidebar__item--selected" href="{{ url_for('upload_piece') }}">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                </a>
+            </div>
+            <section class="main-viewport">
+                <div class="container-fluid">
+                    <h1 class="section-title"> Upload A Piece </h1>
+                    <form method=post enctype=multipart/form-data>
+                        <div class="form-group">
+                            <label for="username">Name</label>
+                            <input type="text" class="form-control" id="username" name=username placeholder="name your tag">
+                        </div>
+                        <div class="form-group">
+                                <label for="tag">Tag</label>
+                                <input type="file" class="form-control-file" id="tag" name=tag>
+                                <small class="form-text text-muted">
+                                    Must be an .jpeg file.
+                                </small>
+                            </div>
+                        <div class="form-group">
+                            <label for="model">3D Model</label>
+                            <input type="file" class="form-control-file" id="model" name=model>
+                            <small class="form-text text-muted">
+                                Must be an .obj file.
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="texture">Texture</label>
+                            <input type="file" class="form-control-file" id="texture" name=texture>
+                            <small class="form-text text-muted">
+                                Must be an .jpeg file.
+                            </small>
+                        </div>
+                        <hr style="margin: 40px 0px;">
+                        <button type="submit" class="button-main center-block">Upload</button>
+                    </form>
+                </div>
+            </section>
+        </body>
+    </html>
