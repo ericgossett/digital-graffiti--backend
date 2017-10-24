@@ -106,6 +106,8 @@ def upload_piece():
                 # return(str(os.path.join(app.config['UPLOAD_FOLDER'], new_filename)))
         
         db.pieces.insert_one(document)
+        return redirect(url_for('tags'))
+
     return render_template('upload.html')
 
 
