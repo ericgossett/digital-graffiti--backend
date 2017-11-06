@@ -27,6 +27,7 @@ services:
 
  redis:
    image: 'redis:3.0-alpine'
+   restart: always
    command: redis-server --requirepass password
    volumes:
      - redis:/var/lib/redis/data
@@ -35,10 +36,12 @@ services:
 
  celery:
    build: ./web
+   restart: always
    command: celery worker -l info -A app.celery
 
  mongo:
    image: mongo:3.4.0
+   restart: always
 
 volumes:
   redis:
