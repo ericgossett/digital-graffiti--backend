@@ -80,7 +80,7 @@
                 var texture = new THREE.Texture();
 
 				var loader = new THREE.ImageLoader( manager );
-				loader.load( '{{ piece.texture }}', function ( image ) {
+				loader.load( '{{ piece.texture.url }}', function ( image ) {
 
 					texture.image = image;
 					texture.needsUpdate = true;
@@ -96,7 +96,7 @@
 
 				// model
 				loader = new THREE.OBJLoader( manager );
-				loader.load( '{{ piece.model }}', function ( object ) {
+				loader.load( '{{ piece.model.url }}', function ( object ) {
 
 					object.traverse( function ( child ) {
 

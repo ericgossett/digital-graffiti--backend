@@ -96,15 +96,22 @@ def upload_piece():
                 return 'the following file is not in an allowed format ' + key 
             if file and allowed_file(file.filename):
                 _, extension = os.path.splitext(file.filename)
-                new_filename =  username + '_' + key + extension
+                new_filename = username + '_' + key + extension
 
                 file.save(
                     os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
                 )
 
-                document[key] = url_for('uploaded_file', filename=new_filename)
+                document[key] = {
+                    'name': new_filename,
+                    'url': url_for(
+                        'uploaded_file',
+                        filename=new_filename,
+                        _external=True
+                    )
+                }
                 # return(str(os.path.join(app.config['UPLOAD_FOLDER'], new_filename)))
-        
+
         db.pieces.insert_one(document)
         return redirect(url_for('tags'))
 
@@ -130,7 +137,7 @@ def piece_viewer(username):
 @app.route('/api/v1/pieces')
 def pieces():
     return Response(
-        dumps(db.pieces.find({})),
+        dumps(db.pieces.find({}, {'_id': False})),
         mimetype='application/json',
         headers={
             'Access-Control-Allow-Origin': '*',

@@ -207,7 +207,7 @@
  <div class="col-md-3">
      <a href="{{ url_for('piece_viewer', username=tag.username ) }}" class="card-link">
         <div class="card">
-            <div class="card__header-image" style="background-image:url('{{ tag.tag }}');"></div>
+            <div class="card__header-image" style="background-image:url('{{ tag.tag.url }}');"></div>
             <div class="card__row">
                 <div class="card__title">
                     {{ tag.username }}
