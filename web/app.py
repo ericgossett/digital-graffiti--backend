@@ -20,7 +20,7 @@ from celery import Task
 from pymongo import MongoClient
 from bson.json_util import dumps
 
-ALLOWED_EXTENSIONS = set(['obj', 'png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['obj', 'jpg'])
 
 app = Flask(__name__)
 app.config.from_object(settings)
@@ -29,6 +29,7 @@ app.config.from_object(settings)
 client = MongoClient('mongodb://mongo:27017')
 db = client.test_db
 collection = db.test_collection
+
 
 # Celery Init
 def make_celery(app):
@@ -67,9 +68,15 @@ def uploaded_file(filename):
         filename
     )
 
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_piece():
     if request.method == 'POST':
+        if 'password' not in request.form:
+            return 'password not specified'
+        if request.form['password'] != 'TeamNoahsFTW':
+            return 'invalid password'
+
         if 'username' not in request.form:
             return 'username not defined'
         if request.form['username'] == '':
@@ -127,7 +134,6 @@ def piece_viewer(username):
         return 'username not found'
 
 
-
 ###############################################################################
 #
 #                               API ROUTES
@@ -143,8 +149,6 @@ def pieces():
             'Access-Control-Allow-Origin': '*',
         }
     )
-
-
 
 
 ###############################################################################
@@ -205,4 +209,3 @@ def mongo_post():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=80)
-  

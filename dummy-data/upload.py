@@ -15,6 +15,7 @@ for d in upload_data:
         'texture': open('x-wing_texture.jpg', 'rb')
     }
     values = {
-        'username': d['username']
+        'username': d['username'],
+        'password': 'TeamNoahsFTW'
     }
     _ = requests.post(url, files=files, data=values)
