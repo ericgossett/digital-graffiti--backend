@@ -151,6 +151,36 @@ def pieces():
     )
 
 
+
+@app.route('/api/v1/delete/<username>', methods=['DELETE'])
+def delete_piece(username):
+    if request.method != 'DELETE':
+        return Response('nope')
+    if request.args.get('password') == 'TeamNoahsFTW':
+        if db.pieces.find_one({'username': username}):
+            db.pieces.remove({'username': username})
+            os.remove(
+                os.path.join(
+                    app.config['UPLOAD_FOLDER'],
+                    username + '_tag.jpg'
+                )
+            )
+            os.remove(
+                os.path.join(
+                    app.config['UPLOAD_FOLDER'],
+                    username + '_texture.jpg'
+                )
+            )
+            os.remove(
+                os.path.join(
+                    app.config['UPLOAD_FOLDER'],
+                    username + '_model.obj'
+                )
+            )
+            return Response(username + ' was deleted')
+    else:
+        return Response('invalid model or password')
+
 ###############################################################################
 #
 #                           CELERY TEST ROUTES
