@@ -46,6 +46,9 @@ docker-compose up
 
 If you go [127.0.0.1](http://127.0.0.1/) the web application should be visible. 
 
+
+On a clean build, the database will be empty. One may upload via the web application (see the next section) or one may populate the database using our upload script found in the dummy-data directory. To use this script one must install the Python requests library.
+
 # Uploading
 
 ## PLEASE READ IN DETAIL

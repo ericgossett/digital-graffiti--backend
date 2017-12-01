@@ -51,18 +51,27 @@ celery = make_celery(app)
 
 
 def allowed_file(filename):
+    """
+    Specifies the allowed file extensions when uploading
+    """
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
 def tags():
+    """
+    The main view of the web application that list all the tags.
+    """
     context = list(db.pieces.find({}))
     return render_template('index.html', tags=context)
 
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
+    """
+    Responds with an uploaded asset, given the filename.
+    """
     return send_from_directory(
         app.config['UPLOAD_FOLDER'],
         filename
@@ -71,18 +80,24 @@ def uploaded_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_piece():
+    """
+    The upload route. Checks for the password. If vaild will upload 
+    the files and save a record in the database.
+    """
     if request.method == 'POST':
         if 'password' not in request.form:
             return 'password not specified'
+
         if request.form['password'] != 'TeamNoahsFTW':
             return 'invalid password'
 
         if 'username' not in request.form:
             return 'username not defined'
+
         if request.form['username'] == '':
             return 'username is empty'
-        username = request.form['username']
 
+        username = request.form['username']
         if db.pieces.find_one({'username': username}):
             return 'username taken.'
 
@@ -96,11 +111,14 @@ def upload_piece():
         file_keys = ['tag', 'texture', 'model']
         if not all(x in request.files for x in file_keys):
             return 'file missing in request'
+
         for key, file in request.files.items():
             if file.filename == '':
                 return 'the following file is missing: ' + key
+
             if not allowed_file(file.filename):
-                return 'the following file is not in an allowed format ' + key 
+                return 'the following file is not in an allowed format ' + key
+
             if file and allowed_file(file.filename):
                 _, extension = os.path.splitext(file.filename)
                 new_filename = username + '_' + key + extension
@@ -117,7 +135,6 @@ def upload_piece():
                         _external=True
                     )
                 }
-                # return(str(os.path.join(app.config['UPLOAD_FOLDER'], new_filename)))
 
         db.pieces.insert_one(document)
         return redirect(url_for('tags'))
@@ -127,6 +144,9 @@ def upload_piece():
 
 @app.route('/piece/<username>')
 def piece_viewer(username):
+    """
+    3D model viewer page for a given username.
+    """
     user_piece = db.pieces.find_one({'username': username})
     if user_piece:
         return render_template('piece.html', piece=user_piece)
@@ -142,6 +162,9 @@ def piece_viewer(username):
 
 @app.route('/api/v1/pieces')
 def pieces():
+    """
+    Main API endpoint. Returns a JSON array listing every user and their files.
+    """
     return Response(
         dumps(db.pieces.find({}, {'_id': False})),
         mimetype='application/json',
@@ -151,9 +174,11 @@ def pieces():
     )
 
 
-
 @app.route('/api/v1/delete/<username>', methods=['DELETE'])
 def delete_piece(username):
+    """
+    Deletes an uploaded user.
+    """
     if request.method != 'DELETE':
         return Response('nope')
     if request.args.get('password') == 'TeamNoahsFTW':
@@ -181,6 +206,8 @@ def delete_piece(username):
     else:
         return Response('invalid model or password')
 
+
+"""
 ###############################################################################
 #
 #                           CELERY TEST ROUTES
@@ -235,6 +262,8 @@ def mongo_post():
         'title': request.form['title'],
     })
     return redirect(url_for('mongo_get'))
+
+"""
 
 
 if __name__ == '__main__':
