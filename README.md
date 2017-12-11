@@ -64,12 +64,10 @@ If you choose to upload your own model please make sure to following these instr
 
 - **Note:** some model files may be to large when displaying in the ARView.
 
-- The password to upload files is TeamNoahsFTW. This is a very poor way to handle security, that was done in order to focus our efforts on the mobile app rather than proper authentication.
-
 - To delete an upload you can do so using the API by running the following command, where `{username}` is the user to delete:
 
 ```
-curl -X "DELETE" http://vcm-2006.vm.duke.edu/api/v1/delete/{username}\?password\=TeamNoahsFTW
+curl -X "DELETE" http://vcm-2006.vm.duke.edu/api/v1/delete/{username}
 ```
 
 # Other comments
